@@ -1,0 +1,10 @@
+.vscode
+nohup.out
+open
+/*.exe
+/*.exe~
+/logs
+/.idea
+/.idea/*
+/public/.idea
+/public/.well-known/
