@@ -18,6 +18,7 @@ import (
 
 const (
 	port         = 8000
+	Host         = "192.168.0.45"
 	endpoint     = "192.168.0.45:2379"
 	service_name = "/service"
 )
@@ -63,7 +64,7 @@ func ServService(w *sync.WaitGroup) {
 		w.Done()
 	}()
 
-	addr := "192.168.0.45:" + strconv.Itoa(port)
+	addr := Host + ":" + strconv.Itoa(port)
 	listen, err := net.Listen("tcp", addr)
 	if err != nil {
 		log.Println("listen err:", err.Error())
