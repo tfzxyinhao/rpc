@@ -3,8 +3,6 @@ package main
 import (
 	"flag"
 
-	"sync"
-
 	"github.com/tfzxyinhao/rpc/gservice"
 )
 
@@ -20,11 +18,8 @@ func main() {
 			gservice.ClientTestServiceDirect()
 		case "s":
 			{
-				var w sync.WaitGroup
-				w.Add(2)
-				gservice.RegisterService(&w)
-				go gservice.ServService(&w)
-				w.Wait()
+				gservice.RegisterService()
+				gservice.ServService()
 			}
 		}
 	}

@@ -4,7 +4,6 @@ import (
 	"log"
 	"net"
 	"strconv"
-	"sync"
 	"time"
 
 	"github.com/tfzxyinhao/rpc/gservice/calc"
@@ -19,7 +18,7 @@ import (
 const (
 	port         = 8000
 	Host         = "192.168.0.45"
-	endpoint     = "192.168.0.45:2379"
+	endpoint     = "http://192.168.0.45:2379"
 	service_name = "/service"
 )
 
@@ -59,11 +58,7 @@ func GetLocalAddrs() []string {
 	return result
 }
 
-func ServService(w *sync.WaitGroup) {
-	defer func() {
-		w.Done()
-	}()
-
+func ServService() {
 	addr := Host + ":" + strconv.Itoa(port)
 	listen, err := net.Listen("tcp", addr)
 	if err != nil {
@@ -77,11 +72,7 @@ func ServService(w *sync.WaitGroup) {
 	server.Serve(listen)
 }
 
-func RegisterService(w *sync.WaitGroup) {
-	defer func() {
-		w.Done()
-	}()
-
+func RegisterService() {
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   []string{endpoint},
 		DialTimeout: time.Second * 5,
@@ -125,7 +116,7 @@ func ClientTestService() {
 	defer conn.Close()
 	c := calc.NewCalcClient(conn)
 	req := calc.CalcRequest{IResult: 1, SResult: "req"}
-	resp, err := c.CalcResult(context.Background(), &req)
+	resp, err := c.CalcResult(cli.Ctx(), &req)
 	if err != nil {
 		log.Println("calc err:", err)
 		return
