@@ -3,10 +3,11 @@ package gservice
 import (
 	"log"
 	"net"
-	"rpc/gservice/calc"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/tfzxyinhao/rpc/gservice/calc"
 
 	"github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/clientv3/naming"

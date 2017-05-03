@@ -3,8 +3,9 @@ package main
 import (
 	"flag"
 
-	"rpc/gservice"
 	"sync"
+
+	"github.com/tfzxyinhao/rpc/gservice"
 )
 
 func main() {
